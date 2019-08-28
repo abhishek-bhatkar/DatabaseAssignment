@@ -1,0 +1,294 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 4
+Server version: 5.1.38-community MySQL Community Server (GPL)
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| adventureworks     |
+| datatype           |
+| library            |
+| mydb               |
+| mydb1              |
+| mysql              |
+| prac               |
+| student_info       |
+| vocab              |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> use adventureworks;
+Database changed
+mysql> select *
+    -> from Product;
++-----------+------+
+| ProductID | Name |
++-----------+------+
+|         1 | abc  |
+|         2 | abc  |
+|         3 | abc  |
+|         4 | abc  |
+|         5 | abc  |
++-----------+------+
+5 rows in set (0.03 sec)
+
+mysql> SELECT Name
+    ->   FROM Product
+    ->   WHERE ProductID = 3;
++------+
+| Name |
++------+
+| abc  |
++------+
+1 row in set (0.00 sec)
+
+mysql> SELECT PRoductID AS ID,
+    ->        Name
+    ->   FROM Product
+    ->   WHERE ProductID > 3;
++----+------+
+| ID | Name |
++----+------+
+|  4 | abc  |
+|  5 | abc  |
++----+------+
+2 rows in set (0.02 sec)
+
+mysql> SELECT PRoductID AS ID,
+    ->        Name
+    ->   FROM Product
+    ->   WHERE ProductID < 3;
++----+------+
+| ID | Name |
++----+------+
+|  1 | abc  |
+|  2 | abc  |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT PRoductID AS ID,
+    ->        Name
+    ->   FROM Product
+    ->   WHERE ProductID != 3;
++----+------+
+| ID | Name |
++----+------+
+|  1 | abc  |
+|  2 | abc  |
+|  4 | abc  |
+|  5 | abc  |
++----+------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT PRoductID AS ID,
+    ->        Name
+    ->   FROM Product
+    ->   WHERE ProductID <> 3;
++----+------+
+| ID | Name |
++----+------+
+|  1 | abc  |
+|  2 | abc  |
+|  4 | abc  |
+|  5 | abc  |
++----+------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT PRoductID AS ID,
+    ->        Name
+    ->   FROM Product
+    ->   WHERE ID <> 3;
+ERROR 1054 (42S22): Unknown column 'ID' in 'where clause'
+mysql> SELECT PRoductID AS ID,
+    ->        Name
+    ->   FROM Product
+    ->   WHERE PRoductID <> 3
+    ->   ORDER BY ID;
++----+------+
+| ID | Name |
++----+------+
+|  1 | abc  |
+|  2 | abc  |
+|  4 | abc  |
+|  5 | abc  |
++----+------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT PRoductID AS ID,
+    ->        Name
+    ->   FROM Product
+    ->   WHERE PRoductID <> 3
+    ->   ORDER BY ID;
++----+------+
+| ID | Name |
++----+------+
+|  1 | abc  |
+|  2 | abc  |
+|  4 | abc  |
+|  5 | abc  |
++----+------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT PRoductID AS ID,
+    ->        Name
+    ->   FROM Product
+    ->   WHERE PRoductID <> 3
+    ->   ORDER BY ID DESC;
++----+------+
+| ID | Name |
++----+------+
+|  5 | abc  |
+|  4 | abc  |
+|  2 | abc  |
+|  1 | abc  |
++----+------+
+4 rows in set (0.00 sec)
+
+mysql> use library;
+Database changed
+mysql> SELECT BookID, BookName,
+    ->        Price,
+    ->        Price *.10 AS Tax
+    ->   FROM Book
+    ->   WHERE Price *.10 > 12;
++--------+----------------------+--------+---------+
+| BookID | BookName             | Price  | Tax     |
++--------+----------------------+--------+---------+
+|      1 | MySQL for dummies    | 350.00 | 35.0000 |
+|      2 | MySQL for Developers | 560.00 | 56.0000 |
++--------+----------------------+--------+---------+
+2 rows in set (0.03 sec)
+
+mysql> update book
+    -> set price=100;
+Query OK, 3 rows affected (0.08 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select *
+    -> from Book;
++--------+----------------------+--------+
+| BookID | BookName             | Price  |
++--------+----------------------+--------+
+|      1 | MySQL for dummies    | 100.00 |
+|      2 | MySQL for Developers | 100.00 |
+|      3 | HTML% step by step   | 100.00 |
++--------+----------------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT BookID, BookName,
+    ->        Price,
+    ->        Price *.10 AS Tax
+    ->   FROM Book
+    ->   WHERE Price *.10 > 12;
+Empty set (0.00 sec)
+
+mysql> update book
+    -> set price 350;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '350' at line 2
+mysql> update book
+    -> set price=350;
+Query OK, 3 rows affected (0.03 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select *
+    -> from Book;
++--------+----------------------+--------+
+| BookID | BookName             | Price  |
++--------+----------------------+--------+
+|      1 | MySQL for dummies    | 350.00 |
+|      2 | MySQL for Developers | 350.00 |
+|      3 | HTML% step by step   | 350.00 |
++--------+----------------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT BookID, BookName,
+    ->        Price,
+    ->        Price *.10 AS Tax
+    ->   WHERE Price *.10 > 12;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE Price *.10 > 12' at line 4
+mysql> SELECT BookID, BookName,
+    ->        Price,
+    ->        Price *.10 AS Tax
+    ->   FROM Book
+    ->   WHERE Price *.10 > 12;
++--------+----------------------+--------+---------+
+| BookID | BookName             | Price  | Tax     |
++--------+----------------------+--------+---------+
+|      1 | MySQL for dummies    | 350.00 | 35.0000 |
+|      2 | MySQL for Developers | 350.00 | 35.0000 |
+|      3 | HTML% step by step   | 350.00 | 35.0000 |
++--------+----------------------+--------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT BookID, BookName,
+    ->        Price
+    ->   FROM Book
+    ->   WHERE BookName = 'A';
+Empty set (0.02 sec)
+
+mysql> SELECT BookID, BookName,
+    ->        Price
+    ->   FROM Book
+    ->   WHERE BookName LIKE 'M%';
++--------+----------------------+--------+
+| BookID | BookName             | Price  |
++--------+----------------------+--------+
+|      1 | MySQL for dummies    | 350.00 |
+|      2 | MySQL for Developers | 350.00 |
++--------+----------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT BookID, BookName,
+    ->        Price
+    ->   FROM Book
+    ->   WHERE BookName LIKE '%for%';
++--------+----------------------+--------+
+| BookID | BookName             | Price  |
++--------+----------------------+--------+
+|      1 | MySQL for dummies    | 350.00 |
+|      2 | MySQL for Developers | 350.00 |
++--------+----------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT Name
+    ->    FROM PRoductCategory
+    ->    WHERE Name LIKE 'd______';
+ERROR 1146 (42S02): Table 'library.productcategory' doesn't exist
+mysql>
+mysql> SELECT BookName
+    ->    FROM Book
+    ->    WHERE BookName LIKE 'd______';
+Empty set (0.00 sec)
+
+mysql> SELECT BookName
+    ->    FROM Book
+    ->    WHERE BookName LIKE 'B?????';
+Empty set (0.00 sec)
+
+mysql> SELECT Length(BookName), BookName
+    ->    FROM Book;
++------------------+----------------------+
+| Length(BookName) | BookName             |
++------------------+----------------------+
+|               17 | MySQL for dummies    |
+|               20 | MySQL for Developers |
+|               18 | HTML% step by step   |
++------------------+----------------------+
+3 rows in set (0.03 sec)
+
+mysql> SELECT Length(BookName), BookName
+    ->    FROM Book
+    ->    WHERE Length(BookName) = 17;
++------------------+-------------------+
+| Length(BookName) | BookName          |
++------------------+-------------------+
+|               17 | MySQL for dummies |
++------------------+-------------------+
+1 row in set (0.00 sec)
+
+mysql>
